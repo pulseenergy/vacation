@@ -46,3 +46,12 @@ def test_set_days():
     expected = [('setdays', '10.5')]
     assert lexer.lex(inputs) == expected
 
+def test_manually_add_day():
+    inputs = ['adjust', '+1']
+    expected = [('adjust', '1')]
+    assert lexer.lex(inputs) == expected
+
+def test_manually_subtract_day():
+    inputs = ['adjust', '-1']
+    expected = [('adjust', '-1')]
+    assert lexer.lex(inputs) == expected
