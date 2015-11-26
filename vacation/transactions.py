@@ -9,7 +9,12 @@ Sample vacation transaction file:
 2015-01-31: off
 
 """
+
 from datetime import datetime
+
+import workdays
+
+from holidays import holidays
 
 
 def validate_setup(transactions):
@@ -59,4 +64,30 @@ def parse_transaction_entry(entry):
         raise ValueError('Invalid value in vacationrc for entry: {}'.format(entry))
 
     return (date, action, value)
+
+
+def sum_transactions(transactions):
+    initial_date = None
+    start_days = 0
+    rate = 0
+    day_sum = 0
+    for transaction in transactions:
+        date, action, value = parse_transaction_entry(transaction)
+        if action == 'dates':
+            start_days = value
+        elif action == 'rate':
+            rate = value
+
+        if initial_date is None:
+            initial_date = date
+        elapsed = workdays.networkdays(initial_date, date, holidays)
+        if action == 'off':
+            elapsed -= 1  # Didn't work that day
+            day_sum -= 1  # And we used a day
+        day_sum += rate * elapsed
+
+    return day_sum
+
+
+
 
