@@ -12,9 +12,8 @@ Sample vacation transaction file:
 
 from datetime import datetime
 
+import holidays
 import workdays
-
-from holidays import holidays
 
 
 def validate_setup(transactions):
@@ -66,28 +65,34 @@ def parse_transaction_entry(entry):
     return (date, action, value)
 
 
+def stat_holidays(province='BC', year=2015):
+    """ Returns a list of holiday dates for a province and year. """
+    return holidays.Canada(state=province, years=year).keys()
+
+
 def sum_transactions(transactions):
+    """ Sums transactions into a total of remaining vacation days. """
+    workdays_per_year = 260
     initial_date = None
-    start_days = 0
     rate = 0
     day_sum = 0
     for transaction in transactions:
         date, action, value = parse_transaction_entry(transaction)
+
         if action == 'dates':
-            start_days = value
+            day_sum = value
         elif action == 'rate':
-            rate = value
+            rate = float(value) / workdays_per_year
 
         if initial_date is None:
             initial_date = date
-        elapsed = workdays.networkdays(initial_date, date, holidays)
+
+        elapsed = workdays.networkdays(initial_date, date, stat_holidays())
         if action == 'off':
             elapsed -= 1  # Didn't work that day
             day_sum -= 1  # And we used a day
+
         day_sum += rate * elapsed
 
     return day_sum
-
-
-
 

@@ -4,9 +4,9 @@ import transactions as trans
 
 transactions = [
     '2015-11-01: dates 0',
-    '2015-11-01: rate 0.5',
-    '2015-11-30: off',
-    '2015-12-25: off',
+    '2015-11-01: rate 17',
+    '2015-11-10: off',
+    '2015-11-15: off',
 ]
 
 
@@ -37,12 +37,18 @@ def test_validate_setup_bad_missing_set():
 
 def test_parse_transaction_entry_good_value():
     entry = transactions[1]
-    expected = (datetime.date(2015, 11, 1), 'rate', 0.5)
+    expected = (datetime.date(2015, 11, 1), 'rate', 17.0)
     assert trans.parse_transaction_entry(entry) == expected
 
 
 def test_parse_transaction_entry_good_no_value():
     entry = transactions[2]
-    expected = (datetime.date(2015, 11, 30), 'off', None)
+    expected = (datetime.date(2015, 11, 10), 'off', None)
     assert trans.parse_transaction_entry(entry) == expected
+
+
+def test_sum_transactions_easy():
+    result = trans.sum_transactions(transactions)
+    expected = 15 * (17.0 / 260) - 2
+    assert result == expected
 
