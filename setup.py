@@ -25,4 +25,7 @@ setup(name='vacation',
       licence='GPL2',
       packages=['vacation'],
       include_package_data=True,
-      zip_safe=False)
+      zip_safe=False,
+      entry_points = {
+          'console_scripts': ['vacation=vacation.command_line:main'],
+      })
