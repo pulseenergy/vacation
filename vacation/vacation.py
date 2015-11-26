@@ -1,12 +1,12 @@
 import argparse
 
-import parser
+import lexer
 
 
 def setup_args():
-    parser = argparse.ArgumentParser('Vacation Tracker')
-    parser.add_argument('input', nargs='*')
-    return parser.parse_args()
+    argp = argparse.ArgumentParser('Vacation Tracker')
+    argp.add_argument('input', nargs='*')
+    return argp.parse_args()
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
     def tester():
         print(args)
     tester()
-    parser.parse(args.input)
+    tokens = lexer.lex(args.input)
 
     print("5 vacation days remaining")
 

@@ -1,4 +1,4 @@
+def lex(inputs):
+    """ Lex input. """
 
-def parse(inputs):
-    """ Parse input. """
     print('inputs were {}'.format(inputs))
