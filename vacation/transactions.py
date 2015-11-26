@@ -18,8 +18,9 @@ def validate_setup(transactions):
         return True
     try:
         first, second = transactions[:2]
-    except IndexError:
+    except ValueError:
         print('Error: vacationrc file must have both initial dates and rates entries')
+        return False
 
     parts1, parts2 = first.split(), second.split()
 

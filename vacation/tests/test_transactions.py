@@ -14,6 +14,10 @@ def test_validate_setup_empty():
     assert trans.validate_setup([]) is True
 
 
+def test_validate_setup_missing_rate():
+    assert trans.validate_setup(transactions[:1]) is False
+
+
 def test_validate_setup_good():
     assert trans.validate_setup(transactions) is True
 
