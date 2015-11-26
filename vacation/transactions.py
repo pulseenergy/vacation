@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 def validate_setup(transactions):
-    """ First two transactions must be set rate or set dates. """
+    """ First two transactions must set rate & dates. """
     if not transactions:
         return True
     try:
@@ -40,7 +40,7 @@ def parse_transaction_entry(entry):
 
     date_string = parts[0]
     try:
-        date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
+        date = datetime.strptime(date_string[:-1], '%Y-%m-%d').date()
     except ValueError:
         raise ValueError('Invalid date in vacationrc for entry: {}'.format(entry))
 
@@ -58,3 +58,4 @@ def parse_transaction_entry(entry):
         raise ValueError('Invalid value in vacationrc for entry: {}'.format(entry))
 
     return (date, action, value)
+
