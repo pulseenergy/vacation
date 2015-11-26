@@ -1,9 +1,14 @@
 from setuptools import setup
 
+
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
 setup(name='vacation',
       version='0.1',
       description='Track your vacation days.',
-      long_description='Handy little app to help you keep track of your accumulated and remaining vacation days.',
+      long_description=readme(),
       classifiers=[
           'Development Status :: 2 - Pre-Alpha',
           'Environment :: Console',
