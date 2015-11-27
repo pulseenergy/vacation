@@ -28,10 +28,10 @@ def main():
             rc.append_rc('{}: off'.format(date.strftime('%Y-%m-%d')))
         elif action == 'setrate':
             date = datetime.date.today()
-            rc.append_rc('{}: rate {}'.format(date.strftime('%Y-%m-%d')), token[1])
+            rc.append_rc('{}: rate {}'.format(date.strftime('%Y-%m-%d'), token[1]))
         elif action == 'setdays':
             date = datetime.date.today()
-            rc.append_rc('{}: days {}'.format(date.strftime('%Y-%m-%d')), token[1])
+            rc.append_rc('{}: days {}'.format(date.strftime('%Y-%m-%d'), token[1]))
 
     trans = rc.read_rc()  # Read transactions
     if not trans:
