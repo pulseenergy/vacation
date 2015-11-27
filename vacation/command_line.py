@@ -1,4 +1,4 @@
-import vacation
-
 def main():
-    print vacation.test()
+    import vacation
+    vacation.main()
+

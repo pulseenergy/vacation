@@ -6,11 +6,11 @@ def readme():
         return f.read()
 
 setup(name='vacation',
-      version='0.1',
+      version='0.3',
       description='Track your vacation days.',
       long_description=readme(),
       classifiers=[
-          'Development Status :: 2 - Pre-Alpha',
+          'Development Status :: 4 - Beta',
           'Environment :: Console',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
@@ -25,7 +25,13 @@ setup(name='vacation',
       licence='GPL2',
       packages=['vacation'],
       include_package_data=True,
+      install_requires=[
+          'holidays',
+          'workdays',
+      ],
+      test_suite='nose.collector',
+      tests_require=['nose'],
       zip_safe=False,
-      entry_points = {
-          'console_scripts': ['vacation=vacation.command_line:main'],
-      })
+      entry_points={
+          'console_scripts': ['vacation=vacation.vacation:main'],
+      },)
