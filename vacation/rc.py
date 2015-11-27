@@ -24,6 +24,8 @@ def read_rc(rc_file):
 
 def append_rc(rc_file, entry):
     """ Append either a list of strings or a string to our RC file. """
+    if not entry:
+        return
     try:
         with open(rc_file, 'a') as rc:
             if isinstance(entry, list):

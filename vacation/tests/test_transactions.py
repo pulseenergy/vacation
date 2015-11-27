@@ -49,6 +49,6 @@ def test_parse_transaction_entry_good_no_value():
 
 def test_sum_transactions_easy():
     result = trans.sum_transactions(transactions)
-    expected = 15 * (17.0 / 260) - 2
+    expected = 15 * (17.0 / 250) - 2
     assert result == expected
 

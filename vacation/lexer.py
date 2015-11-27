@@ -14,6 +14,8 @@ def lex(args):
     """ Lex input. """
     if len(args) == 0:
         return [(SHOW)]
+    elif args[0] == SHOW:
+        return [(SHOW)]
     elif args[0] == SET and args[1] == RATE:
         return tokenizeSetRate(args[2:])
     elif args[0] == SET and args[1] == DAYS:
