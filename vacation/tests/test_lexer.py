@@ -3,7 +3,7 @@ from vacation import lexer
 
 def test_no_args():
     inputs = []
-    expected = [('show')]
+    expected = [('show',)]
     assert lexer.lex(inputs) == expected
 
 def test_one_date():

@@ -1,12 +1,14 @@
 import datetime
 
+from nose.tools import assert_almost_equals
+
 from vacation import transactions as trans
 
 transactions = [
     '2015-11-01: days 0',
-    '2015-11-01: rate 17',
+    '2015-11-01: rate 20',
     '2015-11-10: off',
-    '2015-11-15: off',
+    '2015-11-15: show',
 ]
 
 
@@ -37,7 +39,7 @@ def test_validate_setup_bad_missing_set():
 
 def test_parse_transaction_entry_good_value():
     entry = transactions[1]
-    expected = (datetime.date(2015, 11, 1), 'rate', 17.0)
+    expected = (datetime.date(2015, 11, 1), 'rate', 20.0)
     assert trans._parse_transaction_entry(entry) == expected
 
 
@@ -49,6 +51,6 @@ def test_parse_transaction_entry_good_no_value():
 
 def test_sum_transactions_easy():
     result = trans.sum_transactions(transactions)
-    expected = 15 * (17.0 / 250) - 2
-    assert result == expected
+    expected = 15 * (20.0 / 250) - 1
+    assert_almost_equals(result, expected)
 
