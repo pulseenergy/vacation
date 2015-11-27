@@ -15,27 +15,31 @@ def setup_args():
 def main():
     args = setup_args()
 
-    rc_file = rc.rc_file()  # transaction file name
+    rc.touch_rc()  # Make sure ~/.vacationrc exists
 
     tokens = lexer.lex(args.input)
     for token in tokens:
-        if token[0] == 'show':
+        action = token[0]
+        if action == 'show':
             break
-        if token[0] == 'take':
+        elif action == 'take':
             date_str = token[1] + '-{}'.format(datetime.date.today().year)
-
             date = datetime.datetime.strptime(date_str, '%b %d-%Y').date()
-            rc.append_rc(rc_file, '{}: off'.format(date.strftime('%Y-%m-%d')))
+            rc.append_rc('{}: off'.format(date.strftime('%Y-%m-%d')))
+        elif action == 'setrate':
+            date = datetime.date.today()
+            rc.append_rc('{}: rate {}'.format(date.strftime('%Y-%m-%d')), token[1])
+        elif action == 'setdays':
+            date = datetime.date.today()
+            rc.append_rc('{}: days {}'.format(date.strftime('%Y-%m-%d')), token[1])
 
-    trans = rc.read_rc(rc_file)  # Read transactions
-    transactions.validate_setup(trans)  # Validate
-    days_remaining = transactions.sum_transactions(trans)  # sum up our new days remaining
-
-    print('{} vacation days remaining'.format(days_remaining))
-
-
-def test():
-    print("testing")
+    trans = rc.read_rc()  # Read transactions
+    if not trans:
+        print('Your .vacationrc file is empty! Set days and rate.')
+    else:
+        if transactions.validate_setup(trans):  # Validate
+            days_remaining = transactions.sum_transactions(trans)  # sum up our new days remaining
+            print('{} vacation days remaining'.format(days_remaining))
 
 
 if __name__ == '__main__':
