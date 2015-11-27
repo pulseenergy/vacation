@@ -1,5 +1,3 @@
-import pdb
-
 SHOW = 'show'
 TAKE = 'take'
 SET = 'set'
