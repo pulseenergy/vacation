@@ -1,6 +1,6 @@
 import os
 
-import rc
+from vacation import rc
 
 
 def test_rc_file():

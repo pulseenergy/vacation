@@ -1,4 +1,4 @@
-import lexer
+from vacation import lexer
 
 
 def test_no_args():
