@@ -59,7 +59,9 @@ Development should be easy!
   * `pip instal -r requirements`
 5. Run tests
   * `nosetests` or `make test`
-6. Make changes. Submit pull requests. Be happy.
+6. Run the program, using the `run.py` script
+  * `python run.py [args]`
+7. Make changes. Submit pull requests. Be happy.
 
 You can even install *Vacation* into your virtualenv if you want (`pip install vacation`),
 and it will give you the `vacation` without polluting your global installation.
