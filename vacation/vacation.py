@@ -3,9 +3,9 @@ from __future__ import absolute_import
 import argparse
 import datetime
 
-import lexer
-import transactions
-import rc
+from . import lexer
+from . import transactions
+from . import rc
 
 
 def setup_args():
