@@ -1,9 +1,11 @@
+from __future__ import absolute_import
+
 import argparse
 import datetime
 
-from vacation import lexer
-from vacation import transactions
-from vacation import rc
+import lexer
+import transactions
+import rc
 
 
 def setup_args():

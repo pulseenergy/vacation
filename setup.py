@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 setup(name='vacation',
-      version='0.4.5',
+      version='0.4.6',
       description='Track your vacation days.',
       long_description=readme(),
       classifiers=[
