@@ -3,7 +3,9 @@ VENV = venv/bin
 ACTIVATE = . venv/bin/activate;
 
 run:
-	$(ROOT_DIR)/$(VENV)/python vacation/vacation.py
+	# Note you can't pass args (directly) using Make run
+	# Use ./run.py
+	$(ROOT_DIR)/$(VENV)/python -m vacation.vacation
 
 test:
 	$(ROOT_DIR)/$(VENV)/nosetests vacation --verbose --detailed-errors --with-coverage --cover-tests

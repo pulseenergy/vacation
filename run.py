@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def main():
     from vacation import vacation
     vacation.main()
