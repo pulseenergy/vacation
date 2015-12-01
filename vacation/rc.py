@@ -3,6 +3,7 @@ import os
 
 from . import transactions
 
+
 def execute(tokens):
     """ Perform the actions described by the input tokens. """
     for token in tokens:
@@ -22,6 +23,7 @@ def execute(tokens):
         elif action == 'log':
             log_vacation_days()
 
+
 def show():
     trans = read_rc()  # Read transactions
 
@@ -34,6 +36,7 @@ def show():
             trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
             days_remaining = transactions.sum_transactions(trans)  # sum up our new days remaining
             print('{} vacation days remaining'.format(days_remaining))
+
 
 def rc_file():
     """ Return the full .vacationrc path for convenience. """
@@ -70,7 +73,9 @@ def append_rc(entry):
     except IOError:
         print('Error writing your ~/.vacationrc file!')
 
+
 def log_vacation_days():
     days_off = transactions.get_days_off(read_rc())
     pretty_days = map(lambda day: day.strftime('%a %b %d %Y'), days_off)
-    for day in pretty_days: print(day)
+    for day in pretty_days:
+        print(day)
