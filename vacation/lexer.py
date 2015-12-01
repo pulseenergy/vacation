@@ -6,6 +6,7 @@ DAYS = 'days'
 TAKERANGE = 'takerange'
 SETRATE = 'setrate'
 SETDAYS = 'setdays'
+LOG = 'log'
 MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
 def lex(args):
@@ -14,6 +15,8 @@ def lex(args):
         return [(SHOW,)]
     elif args[0] == SHOW:
         return [(SHOW,)]
+    elif args[0] == LOG:
+        return [(LOG,)]
     elif args[0] == SET and args[1] == RATE:
         return tokenizeSetRate(args[2:])
     elif args[0] == SET and args[1] == DAYS:
