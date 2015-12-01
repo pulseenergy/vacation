@@ -75,7 +75,6 @@ def sum_transactions(transactions):
     last_date = None
     rate = 0
     day_sum = 0
-    transactions.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
     for transaction in transactions:
         date, action, value = _parse_transaction_entry(transaction)
 

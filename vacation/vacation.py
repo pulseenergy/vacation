@@ -25,6 +25,8 @@ def main():
         print('Your .vacationrc file is empty! Set days and rate.')
     else:
         if transactions.validate_setup(trans):  # Validate
+            # TODO: We might want to show in the future, or in the past
+            trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
             days_remaining = transactions.sum_transactions(trans)  # sum up our new days remaining
             print('{} vacation days remaining'.format(days_remaining))
 
