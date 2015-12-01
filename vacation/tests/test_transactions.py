@@ -25,7 +25,7 @@ def test_validate_setup_good():
 
 
 def test_validate_setup_bad_dates():
-    transactions = [
+    bad = [
         '2015-11-02: days 0',  # Wrong date
         '2015-11-01: rate 20',
         '2015-11-10: off',
@@ -35,7 +35,7 @@ def test_validate_setup_bad_dates():
 
 
 def test_validate_setup_bad_missing_set():
-    transactions = [  # Missing set rate
+    bad = [  # Missing set rate
         '2015-11-01: days 0',
         '2015-11-10: off',
         '2015-11-15: show',
@@ -56,7 +56,7 @@ def test_parse_transaction_entry_good_no_value():
 
 
 def test_sum_transactions_easy():
-    transactions = [  # 8 working days: 10 off & 11 is Holiday
+    transactions = [  # 9 working days: 11 is Holiday
         '2015-11-01: days 0',
         '2015-11-01: rate 20',
         '2015-11-15: show',
