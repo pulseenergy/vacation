@@ -95,3 +95,12 @@ def sum_transactions(transactions):
 
     return day_sum
 
+def get_days_off(rc):
+    days_off = []
+    for line in rc:
+        date, action, value = _parse_transaction_entry(line)
+        if action == 'off':
+            days_off.append(date)
+    return days_off
+
+

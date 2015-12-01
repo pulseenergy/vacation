@@ -20,12 +20,12 @@ def execute(tokens):
             date = datetime.date.today()
             append_rc('{}: days {}'.format(date.strftime('%Y-%m-%d'), token[1]))
         elif action == 'log':
-            print("TODO-NTR: implement this")
-            pass
+            log_vacation_days()
 
 def show():
     trans = read_rc()  # Read transactions
 
+    # TODO-NTR: This code needs to be run before certain commands so some rethinking will be required
     if not trans:
         print('Your .vacationrc file is empty! Set days and rate.')
     else:
@@ -69,3 +69,8 @@ def append_rc(entry):
                 f.write(entry + '\n')
     except IOError:
         print('Error writing your ~/.vacationrc file!')
+
+def log_vacation_days():
+    days_off = transactions.get_days_off(read_rc())
+    pretty_days = map(lambda day: day.strftime('%a %b %d %Y'), days_off)
+    for day in pretty_days: print(day)
