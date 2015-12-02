@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import argparse
+import datetime
 
 from . import lexer
 from . import transactions
@@ -28,7 +29,7 @@ def main():
             # TODO: We might want to show in the future, or in the past
             trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
             days_remaining = transactions.sum_transactions(trans)  # sum up our new days remaining
-            print('{} vacation days remaining'.format(days_remaining))
+            print('{:.2f} vacation days remaining'.format(days_remaining))
 
 
 if __name__ == '__main__':
