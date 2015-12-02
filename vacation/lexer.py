@@ -20,6 +20,8 @@ def lex(args):
         return tokenizeSetRate(args[2:])
     elif args[0] == SET and args[1] == DAYS:
         return tokenizeSetDays(args[2:])
+    elif args[0] == TAKE:
+        return tokenizeTake(args[1:])
     elif isMonth(args[0]):
         return tokenizeTake(args)
 

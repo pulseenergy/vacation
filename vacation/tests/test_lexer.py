@@ -16,6 +16,16 @@ def test_two_dates():
     expected = [('take', 'nov 8'), ('take', 'nov 12')]
     assert lexer.lex(inputs) == expected
 
+def test_take_one_date():
+    inputs = ['take', 'Nov', '8']
+    expected = [('take', 'nov 8')]
+    assert lexer.lex(inputs) == expected
+
+def test_take_two_dates():
+    inputs = ['take', 'Nov', '8,', '12']
+    expected = [('take', 'nov 8'), ('take', 'nov 12')]
+    assert lexer.lex(inputs) == expected
+
 # def test_date_easy_range():
 #     inputs = ['Nov', '8-10']
 #     expected = [('takerange', 'nov 8', 'nov 10')]
