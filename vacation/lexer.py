@@ -9,14 +9,13 @@ SETDAYS = 'setdays'
 LOG = 'log'
 MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
+
 def lex(args):
     """ Lex input. """
-    if len(args) == 0:
-        return [(SHOW,)]
-    elif args[0] == SHOW:
-        return [(SHOW,)]
+    if len(args) == 0 or args[0] == SHOW:
+        return [(SHOW, None)]
     elif args[0] == LOG:
-        return [(LOG,)]
+        return [(LOG, None)]
     elif args[0] == SET and args[1] == RATE:
         return tokenizeSetRate(args[2:])
     elif args[0] == SET and args[1] == DAYS:
