@@ -8,7 +8,7 @@ run:
 	$(ROOT_DIR)/$(VENV)/python -m vacation.vacation
 
 test:
-	$(ROOT_DIR)/$(VENV)/nosetests vacation --verbose --detailed-errors --with-coverage --cover-tests
+	$(ROOT_DIR)/$(VENV)/nosetests vacation --verbose --detailed-errors --with-coverage --cover-tests --cover-package=vacation --cover-inclusive
 
 deploy_test:
 	# Requires access and a .pypirc file
