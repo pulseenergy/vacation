@@ -95,3 +95,9 @@ def sum_transactions(transactions):
 
     return day_sum
 
+
+def get_days_off(transactions):
+    """ Return the dates for any 'take day off' transactions. """
+    return [date for date, action, _ in _parse_transaction_entry(transaction) if action == 'off']
+
+
