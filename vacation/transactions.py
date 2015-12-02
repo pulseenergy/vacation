@@ -14,6 +14,56 @@ import datetime
 import holidays
 import workdays
 
+from . import rc
+
+
+def execute(tokens):
+    """ Perform the actions described by the input tokens. """
+    for action, value in tokens:
+        if action == 'show':
+            show()
+        elif action == 'log':
+            log_vacation_days()
+        elif action == 'take':
+            take(value)
+        elif action == 'setrate':
+            setrate(value)
+        elif action == 'setdays':
+            setdays(value)
+
+
+def show():
+    trans = rc.read_rc()  # Read transactions
+
+    # TODO-NTR: This code needs to be run before certain commands so some rethinking will be required
+    if not trans:
+        print('Your .vacationrc file is empty! Set days and rate.')
+    else:
+        if validate_setup(trans):  # Validate
+            # TODO: We might want to show in the future, or in the past
+            trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
+            days_remaining = sum_transactions(trans)  # sum up our new days remaining
+            print('{} vacation days remaining'.format(days_remaining))
+
+
+def take(value, date=None):
+    date_str = value + '-{}'.format(datetime.date.today().year)
+    date = datetime.datetime.strptime(date_str, '%b %d-%Y').date()
+    entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
+    rc.append_rc(entry)
+
+
+def setrate(value, date=None):
+    date = datetime.date.today() if date is None else date
+    entry = '{}: rate'.format(date.strftime('%Y-%m-%d'))
+    rc.append_rc(entry)
+
+
+def setdays(value, date=None):
+    date = datetime.date.today() if date is None else date
+    entry = '{}: days {}'.format(date.strftime('%Y-%m-%d'))
+    rc.append_rc(entry)
+
 
 def validate_setup(transactions):
     """ First two transactions must set rate & days. """
@@ -101,3 +151,9 @@ def get_days_off(transactions):
     return [date for date, action, _ in _parse_transaction_entry(transaction) if action == 'off']
 
 
+def log_vacation_days():
+    """ Sum and report taken days off. """
+    days_off = get_days_off(rc.read_rc())
+    pretty_days = map(lambda day: day.strftime('%a %b %d %Y'), days_off)
+    for day in pretty_days:
+        print(day)

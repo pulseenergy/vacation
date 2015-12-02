@@ -4,6 +4,7 @@ import datetime
 
 from . import lexer
 from . import rc
+from . import transactions
 
 
 def setup_args():
@@ -14,10 +15,9 @@ def setup_args():
 
 def main():
     args = setup_args()
-
     tokens = lexer.lex(args.input)
-    rc.touch_rc()  # Make sure ~/.vacationrc exists
-    rc.execute(tokens)
+    rc.touch_rc()
+    transactions.execute(tokens)
 
 if __name__ == '__main__':
     main()

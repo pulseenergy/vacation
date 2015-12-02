@@ -23,6 +23,7 @@ def lex(args):
     elif isMonth(args[0]):
         return tokenizeTake(args)
 
+
 def tokenizeSetRate(args):
     if not args[0:]:
         raise ValueError('Missing args for <set rate>')
@@ -31,6 +32,7 @@ def tokenizeSetRate(args):
     except ValueError:
         raise ValueError('Invalid rate: {}'.format(args))
     return [(SETRATE, '{}'.format(rate))]
+
 
 def tokenizeSetDays(args):
     if not args[0:]:
@@ -41,13 +43,16 @@ def tokenizeSetDays(args):
         raise ValueError('Invalid number of days: {}'.format(args))
     return [(SETDAYS, '{}'.format(days))]
 
+
 def tokenizeTake(args):
     ret = [(TAKE, date) for date in lexDate(args)]
     return ret
 
+
 def isMonth(arg):
     month = arg[:3].lower()
     return month in MONTHS
+
 
 def lexDate(args):
     month = args[0][:3].lower()
@@ -58,6 +63,7 @@ def lexDate(args):
         day = getDay(arg)
         dates.append('{} {}'.format(month, day))
     return dates
+
 
 def getDay(arg):
     arg = arg.strip(',')
