@@ -1,5 +1,6 @@
-# Input commands:
+import calendar
 
+# Input commands:
 SHOW = 'show'  # show current days remaining (optional)
 LOG = 'log'  # print taken days off
 ECHO = 'echo'  # print entire .vacationrc file
@@ -12,8 +13,6 @@ DAYS = 'days'  # Fix number of days
 TAKERANGE = 'takerange'
 SETRATE = 'setrate'
 SETDAYS = 'setdays'
-
-MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
 
 def lex(args):
@@ -60,8 +59,9 @@ def tokenizeTake(args):
 
 
 def isMonth(arg):
-    month = arg[:3].lower()
-    return month in MONTHS
+    """ Determine if arg is in the calendar months, e.g. 'Jan' return True """
+    month = arg[:3].capitalize()
+    return month in calendar.month_abbr
 
 
 def lexDate(args):
