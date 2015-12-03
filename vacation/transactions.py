@@ -148,7 +148,12 @@ def sum_transactions(transactions):
 
 def get_days_off(transactions):
     """ Return the dates for any 'take day off' transactions. """
-    return [date for date, action, _ in _parse_transaction_entry(transaction) if action == 'off']
+    days_off = []
+    for trans in transactions:
+        date, action, _ = _parse_transaction_entry(trans)
+        if action == 'off':
+            days_off.append(date)
+    return days_off
 
 
 def log_vacation_days():
