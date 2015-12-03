@@ -1,12 +1,18 @@
-SHOW = 'show'
-TAKE = 'take'
-SET = 'set'
-RATE = 'rate'
-DAYS = 'days'
+# Input commands:
+
+SHOW = 'show'  # show current days remaining (optional)
+LOG = 'log'  # print taken days off
+ECHO = 'echo'  # print entire .vacationrc file
+TAKE = 'take'  # take a day off (optional)
+SET = 'set'  # Set one of either rate or days
+RATE = 'rate'  # Set current accumulation rate
+DAYS = 'days'  # Fix number of days
+
+# Token (output) commands:
 TAKERANGE = 'takerange'
 SETRATE = 'setrate'
 SETDAYS = 'setdays'
-LOG = 'log'
+
 MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
 
@@ -16,6 +22,8 @@ def lex(args):
         return [(SHOW, None)]
     elif args[0] == LOG:
         return [(LOG, None)]
+    elif args[0] == ECHO:
+        return [(ECHO, None)]
     elif args[0] == SET and args[1] == RATE:
         return tokenizeSetRate(args[2:])
     elif args[0] == SET and args[1] == DAYS:

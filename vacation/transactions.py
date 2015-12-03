@@ -24,6 +24,8 @@ def execute(tokens):
             show()
         elif action == 'log':
             log_vacation_days()
+        elif action == 'echo':
+            echo_vacation_rc()
         elif action == 'take':
             take(value)
         elif action == 'setrate':
@@ -162,3 +164,11 @@ def log_vacation_days():
     pretty_days = map(lambda day: day.strftime('%a %b %d %Y'), days_off)
     for day in pretty_days:
         print(day)
+
+
+def echo_vacation_rc():
+    """ Display all our .vacationrc file. """
+    contents = rc.read_rc()
+    print('.vacationrc\n===========')
+    for line in contents:
+        print(line.rstrip())
