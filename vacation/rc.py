@@ -23,6 +23,15 @@ def read_rc():
         return []
 
 
+def write_rc(entries):
+    """ Write an entire rc file. """
+    try:
+        with open(rc_file(), 'w') as rc:
+            rc.writelines(entries)
+    except IOError:
+        print('Error writing your ~/.vacationrc file!')
+
+
 def append_rc(entry):
     """ Append either a list of strings or a string to our file. """
     if not entry:
@@ -35,3 +44,11 @@ def append_rc(entry):
                 f.write(entry + '\n')
     except IOError:
         print('Error writing your ~/.vacationrc file!')
+
+
+def delete_rc(bad_entry):
+    """ Removes an entry from rc file. """
+    entries = read_rc()
+    kept_entries = [x for x in entries if x.rstrip() != bad_entry]
+    write_rc(kept_entries)
+

@@ -4,7 +4,8 @@ import calendar
 SHOW = 'show'  # show current days remaining (optional)
 LOG = 'log'  # print taken days off
 ECHO = 'echo'  # print entire .vacationrc file
-TAKE = 'take'  # take a day off (optional)
+TAKE = 'take'  # take a day off ('take' is optional)
+CANCEL = 'cancel'  # cancel a day off
 SET = 'set'  # Set one of either rate or days
 RATE = 'rate'  # Set current accumulation rate
 DAYS = 'days'  # Fix number of days
@@ -29,6 +30,8 @@ def lex(args):
         return tokenizeSetDays(args[2:])
     elif args[0] == TAKE:
         return tokenizeTake(args[1:])
+    elif args[0] == CANCEL:
+        return tokenizeCancel(args[1:])
     elif isMonth(args[0]):
         return tokenizeTake(args)
 
@@ -55,6 +58,11 @@ def tokenizeSetDays(args):
 
 def tokenizeTake(args):
     ret = [(TAKE, date) for date in lexDate(args)]
+    return ret
+
+
+def tokenizeCancel(args):
+    ret = [(CANCEL, date) for date in lexDate(args)]
     return ret
 
 

@@ -28,6 +28,8 @@ def execute(tokens):
             echo_vacation_rc()
         elif action == 'take':
             take(value)
+        elif action == 'cancel':
+            cancel(value)
         elif action == 'setrate':
             setrate(value)
         elif action == 'setdays':
@@ -54,6 +56,12 @@ def take(value, date=None):
     entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
     rc.append_rc(entry)
 
+
+def cancel(value, date=None):
+    date_str = value + '-{}'.format(datetime.date.today().year)
+    date = datetime.datetime.strptime(date_str, '%b %d-%Y').date()
+    entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
+    rc.delete_rc(entry)
 
 def setrate(value, date=None):
     date = datetime.date.today() if date is None else date
