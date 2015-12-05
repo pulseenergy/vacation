@@ -65,13 +65,13 @@ def cancel(value, date=None):
 
 def setrate(value, date=None):
     date = datetime.date.today() if date is None else date
-    entry = '{}: rate'.format(date.strftime('%Y-%m-%d'))
+    entry = '{}: rate'.format(date.strftime('%Y-%m-%d'), value)
     rc.append_rc(entry)
 
 
 def setdays(value, date=None):
     date = datetime.date.today() if date is None else date
-    entry = '{}: days {}'.format(date.strftime('%Y-%m-%d'))
+    entry = '{}: days {}'.format(date.strftime('%Y-%m-%d'), value)
     rc.append_rc(entry)
 
 
