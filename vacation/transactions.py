@@ -47,7 +47,7 @@ def show():
             # TODO: We might want to show in the future, or in the past
             trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
             days_remaining = sum_transactions(trans)  # sum up our new days remaining
-            print('{} vacation days remaining'.format(days_remaining))
+            print('{:.3f} vacation days remaining'.format(days_remaining))
 
 
 def take(value, date=None):
