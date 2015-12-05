@@ -16,7 +16,7 @@ def setup_args():
 def main():
     args = setup_args()
     tokens = lexer.lex(args.input)
-    rc.touch_rc()
+    rc.touch()
     transactions.execute(tokens)
 
 if __name__ == '__main__':

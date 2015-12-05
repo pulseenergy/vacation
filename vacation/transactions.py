@@ -19,6 +19,11 @@ from . import rc
 
 def execute(tokens):
     """ Perform the actions described by the input tokens. """
+    if not validate_rc():
+        print('Your .vacationrc file has errors!')
+        echo_vacation_rc()
+        return
+
     for action, value in tokens:
         if action == 'show':
             show()
@@ -37,42 +42,45 @@ def execute(tokens):
 
 
 def show():
-    trans = rc.read_rc()  # Read transactions
-
-    # TODO-NTR: This code needs to be run before certain commands so some rethinking will be required
-    if not trans:
-        print('Your .vacationrc file is empty! Set days and rate.')
-    else:
-        if validate_setup(trans):  # Validate
-            # TODO: We might want to show in the future, or in the past
-            trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
-            days_remaining = sum_transactions(trans)  # sum up our new days remaining
-            print('{:.3f} vacation days remaining'.format(days_remaining))
+    # TODO: We might want to show in the future, or in the past
+    trans = rc.read()
+    trans.append('{}: show'.format(datetime.date.today().strftime('%Y-%m-%d')))
+    days_remaining = sum_transactions(trans)  # sum up our new days remaining
+    print('{:.3f} vacation days remaining'.format(days_remaining))
 
 
 def take(value, date=None):
     date_str = value + '-{}'.format(datetime.date.today().year)
     date = datetime.datetime.strptime(date_str, '%b %d-%Y').date()
     entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
-    rc.append_rc(entry)
+    rc.append(entry)
 
 
 def cancel(value, date=None):
     date_str = value + '-{}'.format(datetime.date.today().year)
     date = datetime.datetime.strptime(date_str, '%b %d-%Y').date()
     entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
-    rc.delete_rc(entry)
+    rc.delete(entry)
 
 def setrate(value, date=None):
     date = datetime.date.today() if date is None else date
     entry = '{}: rate'.format(date.strftime('%Y-%m-%d'), value)
-    rc.append_rc(entry)
+    rc.append(entry)
 
 
 def setdays(value, date=None):
     date = datetime.date.today() if date is None else date
     entry = '{}: days {}'.format(date.strftime('%Y-%m-%d'), value)
-    rc.append_rc(entry)
+    rc.append(entry)
+
+
+def validate_rc():
+    """ Before we execute any actions, let's validate our .vacationrc. """
+    transactions = rc.read()
+    if not transactions:
+        print('Your .vacationrc file is empty! Set days and rate.')
+        return False
+    return validate_setup(transactions)  # Validate the rate / days settings
 
 
 def validate_setup(transactions):
@@ -168,7 +176,7 @@ def get_days_off(transactions):
 
 def log_vacation_days():
     """ Sum and report taken days off. """
-    days_off = get_days_off(rc.read_rc())
+    days_off = get_days_off(rc.read())
     pretty_days = map(lambda day: day.strftime('%a %b %d %Y'), days_off)
     for day in pretty_days:
         print(day)
@@ -176,7 +184,7 @@ def log_vacation_days():
 
 def echo_vacation_rc():
     """ Display all our .vacationrc file. """
-    contents = rc.read_rc()
+    contents = rc.read()
     print('.vacationrc\n===========')
     for line in contents:
         print(line.rstrip())
