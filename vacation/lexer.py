@@ -17,7 +17,7 @@ SETDAYS = 'setdays'
 
 
 def lex(args):
-    """ Lex input. """
+    """ Lex input and return a list of actions to perform. """
     if len(args) == 0 or args[0] == SHOW:
         return [(SHOW, None)]
     elif args[0] == LOG:
@@ -34,6 +34,9 @@ def lex(args):
         return tokenizeCancel(args[1:])
     elif isMonth(args[0]):
         return tokenizeTake(args)
+    else:
+        print('Unknown commands: {}'.format(' '.join(args)))
+        return []  # No actions to perform
 
 
 def tokenizeSetRate(args):
