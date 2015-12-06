@@ -75,11 +75,16 @@ def setdays(value, date=None):
     rc.append(entry)
 
 
-def filter_unique(transactions):
+def unique(transactions):
     """ Remove any duplicate entries. """
     seen = set()
     # TODO: Handle comments
     return [x for x in transactions if not (x in seen or seen.add(x))]
+
+
+def sort(transactions):
+    """ Return a list of sorted transactions by date. """
+    return transactions.sort(key=lambda x: datetime.datetime.strptime(x.split(':')[0], '%Y-%m-%d'))[:]
 
 
 def validate_rc():
@@ -88,7 +93,7 @@ def validate_rc():
     if not transactions:
         print('Your .vacationrc file is empty! Set days and rate.')
         return False
-    transactions = filter_unique(transactions)
+    transactions = sort(unique(transactions))
     return validate_setup(transactions)  # Validate the rate / days settings
 
 
