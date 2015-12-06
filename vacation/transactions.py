@@ -62,6 +62,7 @@ def cancel(value, date=None):
     entry = '{}: off'.format(date.strftime('%Y-%m-%d'))
     rc.delete(entry)
 
+
 def setrate(value, date=None):
     date = datetime.date.today() if date is None else date
     entry = '{}: rate'.format(date.strftime('%Y-%m-%d'), value)
@@ -74,12 +75,20 @@ def setdays(value, date=None):
     rc.append(entry)
 
 
+def filter_unique(transactions):
+    """ Remove any duplicate entries. """
+    seen = set()
+    # TODO: Handle comments
+    return [x for x in transactions if not (x in seen or seen.add(x))]
+
+
 def validate_rc():
     """ Before we execute any actions, let's validate our .vacationrc. """
     transactions = rc.read()
     if not transactions:
         print('Your .vacationrc file is empty! Set days and rate.')
         return False
+    transactions = filter_unique(transactions)
     return validate_setup(transactions)  # Validate the rate / days settings
 
 
